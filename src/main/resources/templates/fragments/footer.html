@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" th:href="@{/css/carlist.css}" rel="stylesheet" />
+    <link type="text/css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link type="text/html" rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+</head>
+<body>
+<div th:fragment="footer">
+    <footer class="navbar bg-dark navbar-dark fixed-bottom">
+        <div class="container">
+            <div class="row mx-auto">
+                <a href="http://linkedin.com/in/timothy-j-lynch" type="button" class="btn btn-social-icon btn-linkedin"><em class="fab fa-linkedin fa-2x"></em></a>
+                <a href="https://github.com/Lynch0001" type="button" class="btn btn-social-icon btn-github"><em class="fab fa-github fa-2x"></em></a>
+            </div>
+        </div>
+    </footer>
+</div>
+<script th:src="@{/js/jquery-3.5.1.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

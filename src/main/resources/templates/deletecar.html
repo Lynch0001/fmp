@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+    <link type="text/css" th:href="@{/css/carlist.css}" rel="stylesheet" />
+    <link type="text/css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <title>Delete Car</title>
+</head>
+<body>
+<!-- START HEADER -->
+<div th:insert="fragments/header :: header">...</div>
+<!-- END HEADER -->
+    <div class="container-fluid">
+        <div class="header text-center">
+            <h4>Successfully Deleted vehicle: Id - #<span th:text="${id}"></span></h4>
+        </div>
+    </div>
+    <script th:src="@{/js/jquery-3.5.1.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

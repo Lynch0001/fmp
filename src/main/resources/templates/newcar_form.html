@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="application/json" charset="UTF-8">
+    <link type="text/css" th:href="@{/css/carform.css}" rel="stylesheet" />
+    <link type="text/css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <title>Input New Car Details</title>
+</head>
+<!-- START HEADER -->
+<div th:insert="fragments/header :: header">...</div>
+<!-- END HEADER -->
+<body>
+    <div class="container-fluid col-4">
+    <div class="header text-center">
+        <h4>New Vehicle Input Form</h4>
+    </div>
+    <form action="#" th:action="@{/savenewcar}" th:object="${car}" method="post">
+
+        <div class="form-group col-xs-4">
+            <label for="newmake">Make: </label>
+            <input id="newmake" type="text" class="form-control" th:field="*{make}" />
+        </div>
+
+        <div class="form-group col-xs-4">
+            <label for="newmodel">Model: </label>
+            <input id="newmodel" type="text" class="form-control" th:field="*{model}" />
+        </div>
+
+        <div class="form-group col-xs-4">
+            <label for="newcolor">Color: </label>
+            <input id="newcolor" type="text" class="form-control" th:field="*{color}" />
+        </div>
+
+        <div class="form-group col-xs-4">
+            <label for="newyear">Year: </label>
+            <input id="newyear" type="number" class="form-control" th:field="*{manufactureYear}" />
+        </div>
+
+        <div class="form-group col-xs-4">
+            <label for="newvin">VIN: </label>
+            <input id="newvin" type="text" class="form-control" th:field="*{vin}" />
+        </div>
+
+        <div class="form-group col-xs-4">
+            <label for="newdivision">Division: </label>
+            <input id="newdivision" type="text" class="form-control" th:field="*{division}" />
+        </div>
+
+        <div class="form-group col-xs-4">
+            <label for="newbumper">Bumper: </label>
+            <input id="newbumper" type="text" class="form-control" th:field="*{bumper}" />
+        </div>
+
+        <div class="form-group col-xs-4">
+            <label for="newlservice">Last Service: </label>
+            <input id="newlservice" type="date" class="form-control" th:field="${car.lastservice}" />
+        </div>
+
+        <p><input class="btn btn-dark btn-sm" type="submit" value="Submit" /> <input class="btn btn-light btn-sm" type="reset" value="Reset" /></p>
+    </form>
+    <script th:src="@{/js/jquery-3.5.1.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    </div>
+</body>
+</html>
+
+
+

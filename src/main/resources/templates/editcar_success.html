@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" th:href="@{/css/carlist.css}" rel="stylesheet" />
+    <link type="text/css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <title>Vehicle Details</title>
+</head>
+<!-- START HEADER -->
+<div th:insert="fragments/header :: header">...</div>
+<!-- END HEADER -->
+<div class="container-fluid col-8">
+    <div class="col-12 text-center">
+        <h4>Success Editing Vehicle</h4>
+    </div>
+    <body>
+
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${id}">
+            <td th:text="${make}">
+            <td th:text="${model}">
+            <td th:text="${year}">
+        </tr>
+        </tbody>
+    </table>
+
+
+    </body>
+    <script th:src="@{/js/jquery-3.5.1.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</div>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" th:href="@{/css/carlist.css}" rel="stylesheet" />
+    <link type="text/css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <title>Vehicle Details</title>
+</head>
+<!-- START HEADER -->
+<div th:insert="fragments/header :: header">...</div>
+<!-- END HEADER -->
+<div class="container-fluid col-8">
+    <div class="header text-center">
+        <h4>Vehicle Detail Data</h4>
+    </div>
+    <body>
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Action</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Color</th>
+                <th>Bumper</th>
+                <th>VIN</th>
+                <th>Last Service</th>
+                <th>Division</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <a th:href="@{/delete/{id}(id = ${car.id})}">Delete</a><br>
+                    <a th:href="@{/editcar/{id}(id = ${car.id})}">Edit</a>
+                </td>
+                <td th:text="${car.make}">
+                <td th:text="${car.model}">
+                <td th:text="${car.manufactureYear}">
+                <td th:text="${car.color}">
+                <td th:text="${car.bumper}">
+                <td th:text="${car.vin}">
+                <td th:text="${#temporals.format(car.lastservice, 'MMM-dd-yyyy')}">
+                <td th:text="${car.division}">
+            </tr>
+        </tbody>
+    </table>
+
+
+    </body>
+    <script th:src="@{/js/jquery-3.5.1.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</div>
+
+</html>

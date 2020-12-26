@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+    <link type="text/css" th:href="@{/css/carlist.css}" rel="stylesheet" />
+    <link type="text/css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <title>Vehicle Details</title>
+</head>
+<body>
+<!-- START HEADER -->
+<div th:insert="fragments/header :: header">...</div>
+<!-- END HEADER -->
+<div class="container-fluid col-8">
+    <div class="header text-center">
+
+        <!-- TODO: Fix Dynamic Titling -->
+        <h4 th:text="${listTitle}"></h4>
+
+    </div>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Action</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Bumper</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="car: ${cars}">
+            <td>
+                <a href="cardetail.html" th:href="@{/cars/{id}(id=${car.id})}">View</a>
+            </td>
+            <td th:text="${car.make}">
+            <td th:text="${car.model}">
+            <td th:text="${car.manufactureYear}">
+            <td th:text="${car.bumper}">
+        </tr>
+    </tbody>
+</table>
+<script th:src="@{/js/jquery-3.5.1.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!-- START FOOTER -->
+<div th:insert="fragments/footer :: footer">...</div>
+<!-- END FOOTER -->
+</div>
+</body>
+</html>
