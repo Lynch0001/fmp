@@ -38,7 +38,7 @@
             <td th:text="${car.color}">
             <td th:text="${car.bumper}">
             <td th:text="${car.vin}">
-            <td th:text="${#dates.format(car.lastservice, 'MMM-dd-yyyy')}">
+            <td th:text="${#temporals.format(car.lastservice, 'MMM-dd-yyyy')}">
             <td th:text="${car.division}">
         </tr>
         </tbody>

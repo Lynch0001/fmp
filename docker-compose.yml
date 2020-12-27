@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  postgres-data:
+    image: 'postgres:latest'
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: cars
+    expose:
+      - "5432"
+  java-app:
+    restart: on-failure
+    build: .
+    depends_on:
+      - postgres-data
+    ports:
+    - "8080:8080"
+
