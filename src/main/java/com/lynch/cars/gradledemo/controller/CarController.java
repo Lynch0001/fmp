@@ -9,9 +9,9 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.time.LocalDate;
-import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,17 +24,15 @@ public class CarController {
   @Autowired
   CarService carService;
 
-
-
   @GetMapping(value = "/cars/{id}")
-  public String getAbout(@PathVariable Long id, Model model) {
+  public String getCar(@PathVariable Long id, Model model) {
     log.debug("Retrieving data for car id: {}", id);
-
     Optional<Car> carDto = carService.getCar(id);
     if (carDto.isPresent()){
       log.debug("Car retrieved: {}", carDto);
       model.addAttribute("car", carService.getCar(id).get());
     }
+    log.debug("CAR CONTROLLER - dispatches for vehicle id {}: {}", id, carDto.get().getDispatches());
     return "cardetail";
   }
 
@@ -64,7 +62,6 @@ public class CarController {
     return "editcar_form";
   }
 
-
   @PostMapping(value = "/saveeditcar", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
   public String saveEditCar(Car car, Model model){
     carService.saveCar(car);
@@ -82,12 +79,44 @@ public class CarController {
     return "deletecar";
   }
 
-  @GetMapping(value = "/outdatedservice")
-    public String getCarsWithOutdatedService(Model model){
+  @GetMapping(value = "/cars/outdatedservice")
+    public String getExpiredServicesList(Model model){
     List<Car> cars = carService.getServiceOutOfDate();
     model.addAttribute("cars", cars);
     model.addAttribute("listTitle", "Vehicle Service Overdue");
     return "carlist";
   }
 
+  @GetMapping(value = "/cars/available")
+  public String getAvailableVehicleList(Model model){
+    List<Car> cars = carService.getAllAvailableVehicles();
+    model.addAttribute("cars", cars);
+    model.addAttribute("listTitle", "Available Vehicle Listing");
+    return "carlist";
+  }
+
+  @GetMapping(value = "/cars/notavailable")
+  public String getNonAvailableVehicleList(Model model){
+    List<Car> cars = carService.getNonAvailableVehicles();
+    model.addAttribute("cars", cars);
+    model.addAttribute("listTitle", "Non-Available Vehicle Listing");
+    return "carlist";
+  }
+
+  @GetMapping(value = "/cars/dispatched")
+  public String getDispatchedVehicleList(Model model){
+    List<Car> cars = carService.getAllDispatchedVehicles();
+    model.addAttribute("cars", cars);
+    model.addAttribute("listTitle", "Dispatched Vehicle Listing");
+    return "carlist";
+  }
+
+
+  @ExceptionHandler(Exception.class)
+  public ModelAndView errorHandler(HttpServletRequest request, Exception exception){
+    ModelAndView mav = new ModelAndView();
+    mav.addObject(exception);
+    mav.setViewName("error");
+    return mav;
+  }
 }

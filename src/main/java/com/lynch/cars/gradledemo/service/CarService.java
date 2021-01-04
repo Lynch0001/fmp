@@ -1,6 +1,5 @@
 package com.lynch.cars.gradledemo.service;
 
-import com.lynch.cars.gradledemo.controller.CarController;
 import com.lynch.cars.gradledemo.model.Car;
 import com.lynch.cars.gradledemo.repo.CarRepository;
 import org.slf4j.Logger;
@@ -12,6 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 public class CarService {
 
@@ -19,6 +19,10 @@ public class CarService {
 
   @Autowired
   private CarRepository carRepository;
+
+  public Boolean existsCarsById(Long id){
+    return carRepository.existsCarsById(id);
+  }
 
   public List<Car> getCars(){
     return carRepository.findAll();
@@ -46,4 +50,18 @@ public class CarService {
     LocalDate expiredAsOfDate = LocalDate.now().minusDays(365);
     return carRepository.getServiceOutOfDate(expiredAsOfDate);
   }
+
+  public List<Car> getAllAvailableVehicles(){
+    return carRepository.getAllAvailableVehicles();
+  }
+
+  public List<Car> getNonAvailableVehicles(){
+    return carRepository.getVehiclesNotAvailable();
+  }
+
+  public List<Car> getAllDispatchedVehicles(){
+    List<Car> cars = carRepository.getDispatchedVehicles();
+    return cars;
+  }
+
 }

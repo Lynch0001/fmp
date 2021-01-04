@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="application/json" charset="UTF-8">
+    <link type="text/css" th:href="@{/css/carform.css}" rel="stylesheet" />
+    <link type="text/css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <title>Dispatch Form</title>
+</head>
+<!-- START HEADER -->
+<div th:insert="fragments/header :: header">...</div>
+<!-- END HEADER -->
+<body>
+<div class="container-fluid col-4">
+    <div class="header text-center">
+        <h4>Dispatch Release Form for <span th:text="${car.bumper}"></span></h4>
+    </div>
+
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Bumper</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${car.make}">
+            <td th:text="${car.model}">
+            <td th:text="${car.manufactureYear}">
+            <td th:text="${car.bumper}">
+        </tr>
+        </tbody>
+    </table>
+
+    <form action="#" th:action="@{/cars/{id}/savedispatchin(id=${car.id})}" th:object="${dispatch}" method="post">
+
+        <div class="form-group col-xs-4">
+            <label for="indate">Dispatch Return Date: </label>
+            <input id="indate" type="date" class="form-control" th:field="*{dispatchInDate}" required/>
+        </div>
+
+        <div class="form-group col-xs-4">
+            <label for="inmiles">Dispatch Return Mileage: </label>
+            <input id="inmiles" type="number" class="form-control" th:field="*{dispatchInMileage}" required/>
+        </div>
+
+        <div class="form-group col-xs-4">
+            <label for="intech">Dispatch Return Tech: </label>
+            <input id="intech" type="text" class="form-control" th:field="*{dispatchInTech}" required/>
+        </div>
+
+        <div class="form-group col-xs-4">
+            <label for="indriver">Dispatch Driver: </label>
+            <input id="indriver" type="text" class="form-control" th:field="*{dispatchDriver}"required/>
+        </div>
+
+        <div class="form-group">
+            <label for="ininsp">Vehicle Inspection Complete: </label>
+            <input id="ininsp" type="checkbox" th:value="${dispatchInInspection}" onclick="this.value = true" required/>
+        </div>
+
+
+        <p><input class="btn btn-dark btn-sm" type="submit" value="Submit" /> <input class="btn btn-light btn-sm" type="reset" value="Reset" /></p>
+    </form>
+    <script th:src="@{/js/jquery-3.5.1.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</div>
+</body>
+</html>
