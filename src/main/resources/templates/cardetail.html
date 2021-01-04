@@ -14,43 +14,126 @@
         <h4>Vehicle Detail Data</h4>
     </div>
     <body>
-
     <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th>Action</th>
-                <th>Make</th>
-                <th>Model</th>
-                <th>Year</th>
-                <th>Color</th>
-                <th>Bumper</th>
-                <th>VIN</th>
-                <th>Last Service</th>
-                <th>Division</th>
-            </tr>
-        </thead>
         <tbody>
             <tr>
-                <td>
-                    <a th:href="@{/delete/{id}(id = ${car.id})}">Delete</a><br>
-                    <a th:href="@{/editcar/{id}(id = ${car.id})}">Edit</a>
-                </td>
+                <th>Make</th>
                 <td th:text="${car.make}">
+            </tr>
+            <tr>
+                <th>Model</th>
                 <td th:text="${car.model}">
+            </tr>
+            <tr>
+                <th>Year</th>
                 <td th:text="${car.manufactureYear}">
+            </tr>
+            <tr>
+                <th>Color</th>
                 <td th:text="${car.color}">
+            </tr>
+            <tr>
+                <th>Bumper</th>
                 <td th:text="${car.bumper}">
+            </tr>
+            <tr>
+                <th>VIN</th>
                 <td th:text="${car.vin}">
+            </tr>
+            <tr>
+                <th>Last Service</th>
                 <td th:text="${#temporals.format(car.lastservice, 'MMM-dd-yyyy')}">
+            </tr>
+            <tr>
+                <th>Division</th>
                 <td th:text="${car.division}">
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td th:text="${car.status.label}">
             </tr>
         </tbody>
     </table>
-
-
+    <div >
+    <div class="header text-center">
+        <h4>Dispatch History</h4>
+    </div>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Action</th>
+            <th>Out Date</th>
+            <th>In Date</th>
+            <th>Driver</th>
+            <th>Out Mileage</th>
+            <th>In Mileage</th>
+        </tr>
+        </thead>
+        <tbody th:if="${!car.dispatches.isEmpty()}">
+        <tr th:each="dispatch: ${car.dispatches}">
+            <td th:if="*{dispatch.dispatchIn == null}">
+                <a href="cardetail.html" th:href="@{/cars/{id}/dispatchin(id=${car.id})}">Return</a>
+            </td>
+            <td th:if="*{dispatch.dispatchIn == true}"></td>
+            <td th:text="*{dispatch.dispatchOutDate}">
+            <td th:text="*{dispatch.dispatchInDate}">
+            <td th:text="*{dispatch.dispatchDriver}">
+            <td th:text="*{dispatch.dispatchOutMileage}">
+            <td th:text="*{dispatch.dispatchInMileage}">
+        </tr>
+        </tbody>
+        <tbody th:if="${car.dispatches.isEmpty()}">
+        <tr>
+            <td colspan="6" class="text-center">No Dispatch History</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+    <div >
+        <div class="header text-center">
+            <h4>Service History</h4>
+        </div>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th>Action</th>
+                <th>Out Date</th>
+                <th>In Date</th>
+                <th>Tech</th>
+                <th>Out Mileage</th>
+                <th>In Mileage</th>
+            </tr>
+            </thead>
+            <tbody th:if="${!car.services.isEmpty()}">
+            <tr th:each="service: ${car.services}">
+                <td th:if="*{service.serviceOut == null}">
+                    <a href="cardetail.html" th:href="@{/cars/{id}/serviceout(id=${car.id})}">Return</a>
+                </td>
+                <td th:if="*{service.serviceOut == true}"></td>
+                <td th:text="*{service.serviceOutDate}">
+                <td th:text="*{service.serviceInDate}">
+                <td th:text="*{service.serviceInTech}">
+                <td th:text="*{service.serviceOutMileage}">
+                <td th:text="*{service.serviceInMileage}">
+            </tr>
+            </tbody>
+            <tbody th:if="${car.services.isEmpty()}">
+                <tr>
+                    <td colspan="6" class="text-center">No Service History</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <span>
+        <a class="btn btn-secondary btn-sm" type="button" th:href="@{/cars/{id}/dispatchout(id = ${car.id})}">Dispatch</a>
+        <a class="btn btn-secondary btn-sm" type="button" th:href="@{/cars/{id}/servicein(id = ${car.id})}">Service</a>
+    </span>
+    <span>
+        <a class="btn btn-danger btn-sm" type="button" th:href="@{/editcar/{id}(id = ${car.id})}">Edit</a>
+        <a class="btn btn-danger btn-sm" type="button" th:href="@{/delete/{id}(id = ${car.id})}">Delete</a>
+    </span>
     </body>
     <script th:src="@{/js/jquery-3.5.1.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
 </div>
-
 </html>

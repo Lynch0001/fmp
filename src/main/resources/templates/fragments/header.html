@@ -26,13 +26,23 @@
                     <a class="nav-link" href="newcar_form.html" th:href="@{/newcar}">Add Vehicle</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="carlist.html" th:href="@{/outdatedservice}">Expired Service</a>
+                    <a class="nav-link" href="carlist.html" th:href="@{/cars/outdatedservice}">Expired Service</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="carlist.html" th:href="@{/cars/available}">Available Vehicles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="carlist.html" th:href="@{/cars/dispatched}">Dispatched Vehicles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="carlist.html" th:href="@{/cars/notavailable}">Non-Available Vehicles</a>
+                </li>
+
             </ul>
         </div>
     </nav>
 </div>
 <script th:src="@{/js/jquery-3.5.1.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.js}"></script>
 </body>
 </html>

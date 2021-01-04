@@ -13,36 +13,39 @@
 <!-- END HEADER -->
 <div class="container-fluid col-8">
     <div class="header text-center">
-
-        <!-- TODO: Fix Dynamic Titling -->
         <h4 th:text="${listTitle}"></h4>
-
     </div>
-
 <table class="table">
     <thead class="thead-dark">
         <tr>
             <th>Action</th>
+            <th>Bumper</th>
             <th>Make</th>
             <th>Model</th>
-            <th>Year</th>
-            <th>Bumper</th>
+            <th th:if="${#strings.contains(listTitle, 'Non')}">Status</th>
+            <th th:unless="${#strings.contains(listTitle, 'Non')}">Year</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody th:if="${!cars.isEmpty()}">
         <tr th:each="car: ${cars}">
             <td>
                 <a href="cardetail.html" th:href="@{/cars/{id}(id=${car.id})}">View</a>
             </td>
+            <td th:text="${car.bumper}">
             <td th:text="${car.make}">
             <td th:text="${car.model}">
-            <td th:text="${car.manufactureYear}">
-            <td th:text="${car.bumper}">
+            <td th:if="${#strings.contains(listTitle, 'Non')}" th:text="${car.status.label}">
+            <td th:unless="${#strings.contains(listTitle, 'Non')}" th:text="${car.manufactureYear}">
         </tr>
+    </tbody>
+    <tbody th:if="${cars.isEmpty()}">
+    <tr>
+        <td colspan="5" class="text-center">No Matching Records</td>
+    </tr>
     </tbody>
 </table>
 <script th:src="@{/js/jquery-3.5.1.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 <!-- START FOOTER -->
 <div th:insert="fragments/footer :: footer">...</div>
 <!-- END FOOTER -->

@@ -1,12 +1,15 @@
 package com.lynch.cars.gradledemo.model;
 
 
+import com.lynch.cars.gradledemo.service.VehicleServiceService;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "cars")
@@ -41,9 +44,15 @@ public class Car implements Serializable {
   @Column(name = "division")
   private String division;
 
+  @Column(name = "current_status")
+  @Enumerated(EnumType.STRING)
+  private VehicleStatus status = VehicleStatus.NOTAVAILABLE_A;
 
+  @OneToMany(mappedBy = "car")
+  private List<Dispatch> dispatches = new ArrayList<>();
 
-
+  @OneToMany(mappedBy = "car")
+  private List<VehicleService> services = new ArrayList<>();
 
   public Car(){}
 
@@ -117,6 +126,30 @@ public class Car implements Serializable {
 
   public void setDivision(String division) {
     this.division = division;
+  }
+
+  public VehicleStatus getStatus() {
+    return status;
+  }
+
+  public void setStatus(VehicleStatus status) {
+    this.status = status;
+  }
+
+  public List<Dispatch> getDispatches() {
+    return dispatches;
+  }
+
+  public void setDispatches(List<Dispatch> dispatches) {
+    this.dispatches = dispatches;
+  }
+
+  public List<VehicleService> getServices() {
+    return services;
+  }
+
+  public void setServices(List<VehicleService> services) {
+    this.services = services;
   }
 
   @Override

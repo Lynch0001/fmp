@@ -10,7 +10,10 @@
 <div th:insert="fragments/header :: header">...</div>
 <!-- END HEADER -->
 <body>
-    <h1>OOPS!!</h1>
+    <div class="header text-center">
+        <h4>Error Processing Request</h4>
+        <h4><span th:text="${exception.message}"></span></h4>
+    </div>
     <script th:src="@{/js/jquery-3.5.1.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
 </body>
