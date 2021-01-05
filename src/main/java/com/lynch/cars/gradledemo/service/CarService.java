@@ -51,6 +51,12 @@ public class CarService {
     return carRepository.getServiceOutOfDate(expiredAsOfDate);
   }
 
+  public List<Car> getPendingServiceVehicleList(){
+    LocalDate pendingRangeStartDate = LocalDate.now().minusDays(365);
+    LocalDate pendingRangeEndDate = LocalDate.now().minusDays(275);
+    return carRepository.getPendingServiceVehicleList(pendingRangeStartDate, pendingRangeEndDate);
+  }
+
   public List<Car> getAllAvailableVehicles(){
     return carRepository.getAllAvailableVehicles();
   }

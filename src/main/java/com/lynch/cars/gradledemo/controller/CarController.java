@@ -87,6 +87,14 @@ public class CarController {
     return "carlist";
   }
 
+  @GetMapping(value = "/cars/pendingservice")
+  public String getPendingServicesList(Model model){
+    List<Car> cars = carService.getPendingServiceVehicleList();
+    model.addAttribute("cars", cars);
+    model.addAttribute("listTitle", "Vehicle Service Pending - Next 90 Days");
+    return "carlist";
+  }
+
   @GetMapping(value = "/cars/available")
   public String getAvailableVehicleList(Model model){
     List<Car> cars = carService.getAllAvailableVehicles();
