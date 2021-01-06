@@ -16,6 +16,26 @@
     <div class="header text-center">
         <h4>Vehicle Service Release Form</h4>
     </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Bumper</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${car.make}">
+            <td th:text="${car.model}">
+            <td th:text="${car.manufactureYear}">
+            <td th:text="${car.bumper}">
+        </tr>
+        </tbody>
+    </table>
+
     <form action="#" th:action="@{/cars/{id}/saveserviceout(id=${id})}" th:object="${service}" method="post">
 
         <div class="form-group col-xs-4">
@@ -25,7 +45,7 @@
 
         <div class="form-group col-xs-4">
             <label for="outmiles">Release Mileage: </label>
-            <input id="outmiles" type="number" class="form-control" th:field="*{serviceOutMileage}" />
+            <input id="outmiles" type="number" class="form-control" th:placeholder="${car.mileage}" th:field="*{serviceOutMileage}" />
         </div>
 
         <div class="form-group col-xs-4">

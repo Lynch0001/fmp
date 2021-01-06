@@ -54,6 +54,11 @@
         </div>
 
         <div class="form-group col-xs-4">
+            <label for="newmileage">Mileage: </label>
+            <input id="newmileage" type="number" class="form-control" th:field="*{mileage}" />
+        </div>
+
+        <div class="form-group col-xs-4">
             <label for="newlservice">Last Service: </label>
             <input id="newlservice" type="date" class="form-control" th:field="${car.lastservice}" />
         </div>

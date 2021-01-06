@@ -33,4 +33,5 @@ public interface CarRepository extends JpaRepository<Car, Long> {
   public List<Car> getAllAvailableVehicles();
 
   public Boolean existsCarsById(Long id);
+
 }

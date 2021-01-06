@@ -19,7 +19,7 @@
     </div>
 
     <table class="table">
-        <thead class="thead-dark">
+        <thead>
         <tr>
             <th>Make</th>
             <th>Model</th>
@@ -46,7 +46,7 @@
 
         <div class="form-group col-xs-4">
             <label for="outmiles">Dispatch Release Mileage: </label>
-            <input id="outmiles" type="number" class="form-control" th:field="*{dispatchOutMileage}" required/>
+            <input id="outmiles" type="number" class="form-control" th:placeholder="${car.mileage}" th:field="*{dispatchOutMileage}" required/>
         </div>
 
         <div class="form-group col-xs-4">

@@ -73,7 +73,7 @@ public class DispatchService {
   }
 
 
-  public Car updateVehicleWithNewDispatch(Long id, Dispatch dispatch){
+  public Car updateVehicleWithNewDispatch(Long id, Dispatch dispatch) throws Exception {
     log.debug("CAR SERVICE - Received Vehicle Id: {}", id);
     log.debug("CAR SERVICE - Received Dispatch: {}", dispatch);
 
@@ -91,7 +91,13 @@ public class DispatchService {
     newDispatch.setCar(car);
     dispatchRepository.save(newDispatch);
 
-    // update vehicle availability status
+    // update vehicle availability status and mileage
+    if(dispatch.getDispatchOutMileage() >= car.getMileage()) {
+      car.setMileage(dispatch.getDispatchOutMileage());
+      carRepository.save(car);
+    } else {
+      throw new Exception("Vehicle Mileage Error - Dispatch Mileage Less than Current Mileage - Update Current Mileage");
+    }
     car.setStatus(VehicleStatus.valueOf(VehicleStatus.class, "NOTAVAILABLE_D"));
     carRepository.save(car);
     return car;
@@ -99,7 +105,7 @@ public class DispatchService {
 
 
 
-  public Car updateVehicleWithReturnDispatch(Long id, @NonNull Dispatch dispatch){
+  public Car updateVehicleWithReturnDispatch(Long id, @NonNull Dispatch dispatch) throws Exception {
     log.debug("CAR SERVICE - Received Vehicle Id: {}", id);
 
     // get current vehicle
@@ -118,7 +124,13 @@ public class DispatchService {
     activeDispatch.setDispatchInTech(dispatch.getDispatchInTech());
     dispatchRepository.save(activeDispatch);
 
-    // update vehicle availability
+    // update vehicle availability and mileage
+    if(dispatch.getDispatchInMileage() >= car.getMileage()) {
+      car.setMileage(dispatch.getDispatchInMileage());
+      carRepository.save(car);
+    } else {
+      throw new Exception("Vehicle Mileage Error - Dispatch Mileage Less than Current Mileage - Update Current Mileage");
+    }
     car.setStatus(VehicleStatus.valueOf(VehicleStatus.class, "AVAILABLE"));
     carRepository.save(car);
     return car;

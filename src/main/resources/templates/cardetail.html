@@ -44,6 +44,10 @@
                 <td th:text="${car.vin}">
             </tr>
             <tr>
+                <th>Mileage</th>
+                <td th:text="${car.mileage}">
+            </tr>
+            <tr>
                 <th>Last Service</th>
                 <td th:text="${#temporals.format(car.lastservice, 'MMM-dd-yyyy')}">
             </tr>
@@ -133,7 +137,7 @@
         <a class="btn btn-secondary btn-sm" type="button" th:href="@{/cars/{id}/servicein(id = ${car.id})}">Service</a>
     </span>
     <span>
-        <a class="btn btn-danger btn-sm" type="button" th:href="@{/editcar/{id}(id = ${car.id})}">Edit</a>
+        <a class="btn btn-danger btn-sm" type="button" th:href="@{/cars/{id}/editcar(id = ${car.id})}">Edit</a>
         <a class="btn btn-danger btn-sm" type="button" th:href="@{/delete/{id}(id = ${car.id})}">Delete</a>
     </span>
     </body>

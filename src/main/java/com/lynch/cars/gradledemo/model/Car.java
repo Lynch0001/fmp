@@ -37,6 +37,9 @@ public class Car implements Serializable {
   @Column(name = "bumper")
   private String bumper;
 
+  @Column(name = "mileage")
+  private Integer mileage;
+
   @DateTimeFormat(pattern = "yyyy-MM-dd") //"yyyy-MM-dd'T'HH:mm"
   @Column(name = "lastservice")
   private LocalDate lastservice;
@@ -48,10 +51,10 @@ public class Car implements Serializable {
   @Enumerated(EnumType.STRING)
   private VehicleStatus status = VehicleStatus.NOTAVAILABLE_A;
 
-  @OneToMany(mappedBy = "car")
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "car", orphanRemoval = true)
   private List<Dispatch> dispatches = new ArrayList<>();
 
-  @OneToMany(mappedBy = "car")
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "car", orphanRemoval = true)
   private List<VehicleService> services = new ArrayList<>();
 
   public Car(){}
@@ -110,6 +113,14 @@ public class Car implements Serializable {
 
   public void setBumper(String bumper) {
     this.bumper = bumper;
+  }
+
+  public Integer getMileage() {
+    return mileage;
+  }
+
+  public void setMileage(Integer mileage) {
+    this.mileage = mileage;
   }
 
   public LocalDate getLastservice() {

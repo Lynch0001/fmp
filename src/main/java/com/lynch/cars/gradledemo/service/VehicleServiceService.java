@@ -37,7 +37,7 @@ public class VehicleServiceService {
     return vehicleServiceRepository.findAll();
   }
 
-  public Car updateVehicleWithNewService(Long id, VehicleService vehicleService){
+  public Car updateVehicleWithNewService(Long id, VehicleService vehicleService) throws Exception {
     log.debug("VS SERVICE - Received Vehicle Id: {}", id);
     log.debug("VS SERVICE - Received Service: {}", vehicleService);
 
@@ -53,7 +53,13 @@ public class VehicleServiceService {
     vehicleService.setCar(car);
     vehicleServiceRepository.save(vehicleService);
 
-    // update vehicle availability status
+    // update vehicle availability status and mileage
+    if(vehicleService.getServiceInMileage() >= car.getMileage()) {
+      car.setMileage(vehicleService.getServiceInMileage());
+      carRepository.save(car);
+    } else {
+      throw new Exception("Vehicle Mileage Error - Dispatch Mileage Less than Current Mileage - Update Current Mileage");
+    }
     car.setStatus(VehicleStatus.valueOf(VehicleStatus.class, "NOTAVAILABLE_S"));
     carRepository.save(car);
     return car;
@@ -89,7 +95,7 @@ public class VehicleServiceService {
     return vehicleServiceRepository.findDistinctByCarAndServiceOutNull(car);
   }
 
-  public Car updateVehicleWithReturnFromService(Long id, @NonNull VehicleService vehicleService){
+  public Car updateVehicleWithReturnFromService(Long id, @NonNull VehicleService vehicleService) throws Exception {
     log.debug("VS SERVICE - Received Vehicle Id: {}", id);
 
     // get current vehicle
@@ -108,7 +114,15 @@ public class VehicleServiceService {
     activeVehicleService.setServiceType(vehicleService.getServiceType());
     vehicleServiceRepository.save(activeVehicleService);
 
-    // update vehicle availability
+    // update vehicle availability and mileage
+
+    if(vehicleService.getServiceOutMileage() >= car.getMileage()) {
+      car.setMileage(vehicleService.getServiceOutMileage());
+      carRepository.save(car);
+    } else {
+      throw new Exception("Vehicle Mileage Error - Dispatch Mileage Less than Current Mileage - Update Current Mileage");
+    }
+
     car.setStatus(VehicleStatus.valueOf(VehicleStatus.class, "AVAILABLE"));
     carRepository.save(car);
     return car;

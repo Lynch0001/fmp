@@ -56,19 +56,17 @@ public class CarController {
     return "newcar_success";
   }
 
-  @GetMapping(value = "/editcar/{id}")
+  @GetMapping(value = "/cars/{id}/editcar")
   public String getEditCarForm(@PathVariable Long id, Model model){
+    model.addAttribute("id", id);
     model.addAttribute("car", carService.getCar(id));
     return "editcar_form";
   }
 
-  @PostMapping(value = "/saveeditcar", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-  public String saveEditCar(Car car, Model model){
-    carService.saveCar(car);
-    model.addAttribute("id", car.getId());
-    model.addAttribute("make", car.getMake());
-    model.addAttribute("model", car.getModel());
-    model.addAttribute("year", car.getManufactureYear());
+  @PostMapping(value = "/cars/{id}/saveeditcar", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+  public String saveEditCar(@PathVariable Long id, Car car, Model model) throws Exception {
+    Car updatedCar = carService.updateCar(id, car);
+    model.addAttribute("car", updatedCar);
     return "editcar_success";
   }
 
@@ -127,4 +125,5 @@ public class CarController {
     mav.setViewName("error");
     return mav;
   }
+
 }

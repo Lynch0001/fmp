@@ -38,8 +38,23 @@ public class CarService {
     return car.getId();
   }
 
-  public void editCar(Car car){
-    carRepository.save(car);
+  public Car updateCar(Long id, Car car) throws Exception {
+    log.debug("Car Edit for Car: {}", car);
+    Car updateCar = carRepository.findById(id).orElseThrow(()-> new Exception("Vehicle Not Found"));
+    if(!car.getMake().equals(updateCar.getMake())){updateCar.setMake(car.getMake());}
+    if(!car.getModel().equals(updateCar.getModel())){updateCar.setModel(car.getModel());}
+    if(!car.getManufactureYear().equals(updateCar.getManufactureYear())){updateCar.setManufactureYear(car.getManufactureYear());}
+    if(!car.getBumper().equals(updateCar.getBumper())){updateCar.setBumper(car.getBumper());}
+    if(!car.getDivision().equals(updateCar.getDivision())){updateCar.setDivision(car.getDivision());}
+    if(!car.getVin().equals(updateCar.getVin())){updateCar.setVin(car.getVin());}
+    if(!car.getColor().equals(updateCar.getColor())){updateCar.setColor(car.getColor());}
+    if(!car.getMileage().equals(updateCar.getMileage())){updateCar.setMileage(car.getMileage());}
+    if(!car.getLastservice().equals(updateCar.getLastservice())){updateCar.setLastservice(car.getLastservice());}
+    log.debug("Car Status: {}", updateCar.getStatus());
+    log.debug("Update Car Status: {}", car.getStatus());
+    if(!car.getStatus().equals(updateCar.getStatus())){updateCar.setStatus(car.getStatus());}
+    carRepository.save(updateCar);
+    return carRepository.findById(id).orElseThrow(()-> new Exception("Vehicle Not Found"));
   }
 
   public void deleteCar(Long id){

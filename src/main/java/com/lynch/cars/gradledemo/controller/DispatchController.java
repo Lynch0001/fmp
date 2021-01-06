@@ -39,7 +39,7 @@ public class DispatchController {
   public String processDispatchOut(@PathVariable Long id,
                                    @ModelAttribute("car") Car car,
                                    Dispatch dispatch,
-                                   Model model) {
+                                   Model model) throws Exception {
     log.debug("DISPATCH CONTROLLER - received dispatch {}", dispatch);
     Car updatedCar = dispatchService.updateVehicleWithNewDispatch(id, dispatch);
     model.addAttribute("car", updatedCar);
@@ -64,8 +64,9 @@ public class DispatchController {
   public String processDispatchIn(@PathVariable Long id,
                                    @ModelAttribute("car") Car car,
                                    Dispatch dispatch,
-                                   Model model) {
+                                   Model model) throws Exception {
     log.debug("DISPATCH CONTROLLER - received dispatch {}", dispatch);
+    log.debug("DISPATCH CONTROLLER - received car {}", car);
     Car updatedCar = dispatchService.updateVehicleWithReturnDispatch(id, dispatch);
     model.addAttribute("car", updatedCar);
     return "dispatchin_success";
@@ -78,4 +79,5 @@ public class DispatchController {
     mav.setViewName("error");
     return mav;
   }
+
 }

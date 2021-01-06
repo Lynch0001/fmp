@@ -42,7 +42,7 @@ public class VehicleServiceController {
   public String processServiceInForm(@PathVariable Long id,
                                      @ModelAttribute("car") Car car,
                                      VehicleService vehicleService,
-                                     Model model) {
+                                     Model model) throws Exception {
     log.debug("VS CONTROLLER - received service {}", vehicleService);
     Car updatedCar = vehicleServiceService.updateVehicleWithNewService(id, vehicleService);
     model.addAttribute("vehicleService", vehicleService);
@@ -68,7 +68,7 @@ public class VehicleServiceController {
   public String processServiceOut(@PathVariable Long id,
                                   @ModelAttribute("car") Car car,
                                   VehicleService vehicleService,
-                                  Model model) {
+                                  Model model) throws Exception {
     log.debug("DISPATCH CONTROLLER - received Vehicle Service Return {}", vehicleService);
     Car updatedCar = vehicleServiceService.updateVehicleWithReturnFromService(id, vehicleService);
     model.addAttribute("car", updatedCar);
