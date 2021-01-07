@@ -50,20 +50,25 @@
         </div>
 
         <div class="form-group col-xs-4">
-            <label for="intech">Dispatch Return Tech: </label>
-            <input id="intech" type="text" class="form-control" th:field="*{dispatchInTech}" required/>
+            <label for="intech">Dispatch Tech: </label>
+            <select class="custom-select" id="intech" type="text" th:field="*{dispatchInTech}">
+                <option value="" >Please select...</option>
+                <option th:each="tech: ${techs}" th:value="${tech.name}" th:text="${tech.name}"></option>
+            </select>
         </div>
 
         <div class="form-group col-xs-4">
             <label for="indriver">Dispatch Driver: </label>
-            <input id="indriver" type="text" class="form-control" th:field="*{dispatchDriver}"required/>
+            <select class="custom-select" id="indriver" type="text" th:field="*{dispatchDriver}">
+                <option value="" >Please select...</option>
+                <option th:each="driver: ${drivers}" th:value="${driver.name}" th:text="${driver.name}"></option>
+            </select>
         </div>
 
         <div class="form-group">
             <label for="ininsp">Vehicle Inspection Complete: </label>
             <input id="ininsp" type="checkbox" th:value="${dispatchInInspection}" onclick="this.value = true" required/>
         </div>
-
 
         <p><input class="btn btn-dark btn-sm" type="submit" value="Submit" /> <input class="btn btn-light btn-sm" type="reset" value="Reset" /></p>
     </form>

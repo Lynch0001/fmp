@@ -49,13 +49,26 @@
         </div>
 
         <div class="form-group col-xs-4">
-            <label for="intech">Intake Tech: </label>
-            <input id="intech" type="text" class="form-control" th:field="*{serviceInTech}" />
+            <label for="intech2">Intake Tech: </label>
+            <select class="custom-select" id="intech2" type="text" th:field="*{serviceInTech}">
+                <option value="" >Please select...</option>
+                <option th:each="tech: ${techs}" th:value="${tech.name}" th:text="${tech.name}"></option>
+            </select>
         </div>
 
+
+
         <div class="form-group col-xs-4">
-            <label for="intype">Planned Service: </label>
-            <input id="intype" type="text" class="form-control" th:field="*{serviceType}" />
+            <label for="intype2">Planned Service: </label>
+            <select class="custom-select" id="intype2" type="text" th:field="*{serviceType}">
+                <option value="" >Please select...</option>
+                <option value="Acceptance Inspection">Acceptance Inspection</option>
+                <option value="Transfer Inspection" >Transfer Inspection</option>
+                <option value="Annual Service" >Annual Service</option>
+                <option value="Routine Service" >Routine Service</option>
+                <option value="Maintenance - Repair" >Maintenance - Repair</option>
+                <option value="Maintenance - Awaiting Parts" >Maintenance - Awaiting Parts</option>
+            </select>
         </div>
 
         <p><input class="btn btn-dark btn-sm" type="submit" value="Submit" /> <input class="btn btn-light btn-sm" type="reset" value="Reset" /></p>

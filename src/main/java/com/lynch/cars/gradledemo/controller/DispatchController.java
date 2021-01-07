@@ -2,8 +2,12 @@ package com.lynch.cars.gradledemo.controller;
 
 import com.lynch.cars.gradledemo.model.Car;
 import com.lynch.cars.gradledemo.model.Dispatch;
+import com.lynch.cars.gradledemo.model.Driver;
+import com.lynch.cars.gradledemo.model.MaintTech;
 import com.lynch.cars.gradledemo.service.CarService;
 import com.lynch.cars.gradledemo.service.DispatchService;
+import com.lynch.cars.gradledemo.service.DriverService;
+import com.lynch.cars.gradledemo.service.MaintTechService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class DispatchController {
@@ -26,10 +31,20 @@ public class DispatchController {
   @Autowired
   private CarService carService;
 
+  @Autowired
+  private MaintTechService maintTechService;
+
+  @Autowired
+  private DriverService driverService;
+
   @GetMapping(value = "/cars/{id}/dispatchout")
   public String provideDispatchOutForm(@PathVariable Long id, Model model) throws Exception {
     if(!dispatchService.vehicleAvailableForDispatch(id)){return "error";}
     Car car = carService.getCar(id).get();
+    List<MaintTech> techs = maintTechService.getMaintTechs();
+    List<Driver> drivers = driverService.getDrivers();
+    model.addAttribute("techs", techs);
+    model.addAttribute("drivers", drivers);
     model.addAttribute("car", car);
     model.addAttribute("dispatch", new Dispatch());
     return "dispatchout_form";
@@ -55,6 +70,10 @@ public class DispatchController {
       throw new Exception("Vehicle is Not Dispatched");}
     Dispatch activeDispatch = dispatchService.findActiveDispatchForVehicle(car);
     log.debug("DISPATCH CONTROLLER - id for active dispatch returned {}", activeDispatch.getId());
+    List<MaintTech> techs = maintTechService.getMaintTechs();
+    List<Driver> drivers = driverService.getDrivers();
+    model.addAttribute("techs", techs);
+    model.addAttribute("drivers", drivers);
     model.addAttribute("car", car);
     model.addAttribute("dispatch", activeDispatch);
     return "dispatchin_form";

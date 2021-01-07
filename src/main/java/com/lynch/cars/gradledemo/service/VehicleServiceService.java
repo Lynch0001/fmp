@@ -5,6 +5,7 @@ import com.lynch.cars.gradledemo.model.Dispatch;
 import com.lynch.cars.gradledemo.model.VehicleService;
 import com.lynch.cars.gradledemo.model.VehicleStatus;
 import com.lynch.cars.gradledemo.repo.CarRepository;
+import com.lynch.cars.gradledemo.repo.MaintTechRepository;
 import com.lynch.cars.gradledemo.repo.VehicleServiceRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -114,7 +115,7 @@ public class VehicleServiceService {
     activeVehicleService.setServiceType(vehicleService.getServiceType());
     vehicleServiceRepository.save(activeVehicleService);
 
-    // update vehicle availability and mileage
+    // update vehicle availability, mileage and lastservice date
 
     if(vehicleService.getServiceOutMileage() >= car.getMileage()) {
       car.setMileage(vehicleService.getServiceOutMileage());
@@ -122,7 +123,12 @@ public class VehicleServiceService {
     } else {
       throw new Exception("Vehicle Mileage Error - Dispatch Mileage Less than Current Mileage - Update Current Mileage");
     }
-
+    if(vehicleService.getServiceOutDate().isAfter(car.getLastservice())) {
+      car.setLastservice(vehicleService.getServiceOutDate());
+      carRepository.save(car);
+    } else {
+      throw new Exception("Vehicle Service Date Error");
+    }
     car.setStatus(VehicleStatus.valueOf(VehicleStatus.class, "AVAILABLE"));
     carRepository.save(car);
     return car;

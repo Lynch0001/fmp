@@ -49,13 +49,26 @@
         </div>
 
         <div class="form-group col-xs-4">
-            <label for="outtech">Releasing Tech: </label>
-            <input id="outtech" type="text" class="form-control" th:field="*{serviceOutTech}" />
+            <label for="outtech2">Release Tech: </label>
+            <select class="custom-select" id="outtech2" type="text" th:field="*{serviceOutTech}">
+                <option value="" >Please select...</option>
+                <option th:each="tech: ${techs}" th:value="${tech.name}" th:text="${tech.name}"></option>
+            </select>
         </div>
 
+
+
         <div class="form-group col-xs-4">
-            <label for="servtype">Confirm Service Completed: </label>
-            <input id="servtype" type="text" class="form-control" th:field="*{serviceType}" />
+            <label for="intype2">Completed Service: </label>
+            <select class="custom-select" id="intype2" type="text" th:field="*{serviceType}">
+                <option value="" >Please select...</option>
+                <option value="Acceptance Inspection">Acceptance Inspection</option>
+                <option value="Transfer Inspection" >Transfer Inspection</option>
+                <option value="Annual Service" >Annual Service</option>
+                <option value="Routine Service" >Routine Service</option>
+                <option value="Maintenance - Repair" >Maintenance - Repair</option>
+                <option value="Maintenance - Awaiting Parts" >Maintenance - Awaiting Parts</option>
+            </select>
         </div>
 
 

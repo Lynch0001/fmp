@@ -51,12 +51,18 @@
 
         <div class="form-group col-xs-4">
             <label for="outtech">Dispatch Tech: </label>
-            <input id="outtech" type="text" class="form-control" th:field="*{dispatchOutTech}" required/>
+            <select class="custom-select" id="outtech" type="text" th:field="*{dispatchInTech}">
+                <option value="" >Please select...</option>
+                <option th:each="tech: ${techs}" th:value="${tech.name}" th:text="${tech.name}"></option>
+            </select>
         </div>
 
         <div class="form-group col-xs-4">
             <label for="outdriver">Dispatch Driver: </label>
-            <input id="outdriver" type="text" class="form-control" th:field="*{dispatchDriver}"required/>
+            <select class="custom-select" id="outdriver" type="text" th:field="*{dispatchDriver}">
+                <option value="" >Please select...</option>
+                <option th:each="driver: ${drivers}" th:value="${driver.name}" th:text="${driver.name}"></option>
+            </select>
         </div>
 
         <div class="form-group">

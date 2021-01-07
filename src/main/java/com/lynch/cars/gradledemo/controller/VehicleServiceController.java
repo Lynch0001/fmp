@@ -1,8 +1,10 @@
 package com.lynch.cars.gradledemo.controller;
 
 import com.lynch.cars.gradledemo.model.Car;
+import com.lynch.cars.gradledemo.model.MaintTech;
 import com.lynch.cars.gradledemo.model.VehicleService;
 import com.lynch.cars.gradledemo.service.CarService;
+import com.lynch.cars.gradledemo.service.MaintTechService;
 import com.lynch.cars.gradledemo.service.VehicleServiceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 
 @Controller
@@ -27,12 +30,17 @@ public class VehicleServiceController {
   @Autowired
   private CarService carService;
 
+  @Autowired
+  private MaintTechService maintTechService;
+
   @GetMapping(value = "cars/{id}/servicein")
   public String provideServiceInForm(@PathVariable Long id, Model model) throws Exception{
     if(!vehicleServiceService.vehicleAvailableForService(id)){
       throw new Exception("Vehicle Not Available for Service");
     }
     Car car = carService.getCar(id).get();
+    List<MaintTech> techs = maintTechService.getMaintTechs();
+    model.addAttribute("techs", techs);
     model.addAttribute("car", car);
     model.addAttribute("vehicleService", new VehicleService());
     return "servicein_form";
@@ -59,6 +67,8 @@ public class VehicleServiceController {
       throw new Exception("Vehicle is Not in Maintenance Service");}
     VehicleService activeVehicleService = vehicleServiceService.findActiveServiceForVehicle(car);
     log.debug("DISPATCH CONTROLLER - id for active dispatch returned {}", activeVehicleService.getId());
+    List<MaintTech> techs = maintTechService.getMaintTechs();
+    model.addAttribute("techs", techs);
     model.addAttribute("car", car);
     model.addAttribute("service", activeVehicleService);
     return "serviceout_form";
@@ -74,7 +84,7 @@ public class VehicleServiceController {
     model.addAttribute("car", updatedCar);
     return "serviceout_success";
   }
-
+/*
   @ExceptionHandler(Exception.class)
   public ModelAndView errorHandler(HttpServletRequest request, Exception exception){
     ModelAndView mav = new ModelAndView();
@@ -82,4 +92,6 @@ public class VehicleServiceController {
     mav.setViewName("error");
     return mav;
   }
+
+ */
 }
