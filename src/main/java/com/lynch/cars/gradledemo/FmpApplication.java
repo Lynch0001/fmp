@@ -2,6 +2,7 @@ package com.lynch.cars.gradledemo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version 1.0
  * @since   2020-12-25
  */
+
 
 @SpringBootApplication
 public class FmpApplication {

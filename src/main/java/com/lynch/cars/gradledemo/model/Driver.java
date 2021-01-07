@@ -1,12 +1,14 @@
 package com.lynch.cars.gradledemo.model;
 
+import com.lynch.cars.gradledemo.audit.Auditable;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 
 @Entity
 @Table(name = "drivers")
-public class Driver implements Serializable {
+public class Driver extends Auditable<String> implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)

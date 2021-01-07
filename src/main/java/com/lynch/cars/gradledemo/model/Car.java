@@ -1,6 +1,7 @@
 package com.lynch.cars.gradledemo.model;
 
 
+import com.lynch.cars.gradledemo.audit.Auditable;
 import com.lynch.cars.gradledemo.service.VehicleServiceService;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -8,12 +9,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "cars")
-public class Car implements Serializable {
+public class Car extends Auditable<String> implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

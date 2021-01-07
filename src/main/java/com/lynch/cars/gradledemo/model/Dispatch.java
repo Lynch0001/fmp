@@ -1,5 +1,6 @@
 package com.lynch.cars.gradledemo.model;
 
+import com.lynch.cars.gradledemo.audit.Auditable;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "dispatches")
-public class Dispatch implements Serializable {
+public class Dispatch extends Auditable<String> implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)

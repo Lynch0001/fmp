@@ -84,7 +84,7 @@ public class VehicleServiceController {
     model.addAttribute("car", updatedCar);
     return "serviceout_success";
   }
-/*
+
   @ExceptionHandler(Exception.class)
   public ModelAndView errorHandler(HttpServletRequest request, Exception exception){
     ModelAndView mav = new ModelAndView();
@@ -93,5 +93,4 @@ public class VehicleServiceController {
     return mav;
   }
 
- */
 }
