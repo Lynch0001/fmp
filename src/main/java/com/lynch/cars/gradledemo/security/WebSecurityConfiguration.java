@@ -1,7 +1,10 @@
 package com.lynch.cars.gradledemo.security;
 
+import com.lynch.cars.gradledemo.service.AppUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -10,21 +13,21 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+  @Autowired
+  AppUserDetailsService appUserDetailsService;
+
+
+  @Bean
+  public BCryptPasswordEncoder encoder() {
+    return new BCryptPasswordEncoder();
+  }
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    auth.inMemoryAuthentication()
-            .passwordEncoder(passwordEncoder)
-            .withUser("admin")
-            .password(passwordEncoder.encode("admin"))
-            .roles("ADMIN")
-            .and()
-            .withUser("user")
-            .password(passwordEncoder.encode("password"))
-            .roles("USER");
+    auth.userDetailsService(appUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
   }
 
   @Override
@@ -32,11 +35,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     http.authorizeRequests()
             .anyRequest().authenticated()
             .and()
+            .formLogin()
+            .and()
+            .logout()
+            .logoutSuccessUrl("/login")
+            .and()
             .httpBasic();
   }
 
-  @Bean
-  public BCryptPasswordEncoder encoder() {
-    return new BCryptPasswordEncoder();
-  }
 }

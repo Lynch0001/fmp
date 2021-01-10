@@ -36,7 +36,7 @@ public class CarController {
     return "cardetail";
   }
 
-  @GetMapping(value = "/cars")
+  @GetMapping(value = {"/", "/cars"})
   public String getAllCars(Model model){
     model.addAttribute("cars", carService.getCars());
     model.addAttribute("listTitle", "Managed Vehicles");
