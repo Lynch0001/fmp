@@ -4,6 +4,8 @@ plugins {
     id 'java'
 }
 
+
+
 group = 'com.lynch.cars'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
@@ -25,7 +27,43 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 }
+// Not a great idea to do this
+buildDir = "gradleDemoBuildDir"
+
+task showDate {
+    dependsOn build
+    group = "MyTasks"
+    description = "My custom task"
+    doLast {
+        println '****************************************************'
+        println 'Build Completed Date: ' + new Date()
+        println '****************************************************'
+    }
+}
+
+task showName {
+    dependsOn showDate
+    // mustRunAfter showDate
+    group = "MyTasks"
+    description = "Shows my name"
+    doLast {
+        println '****************************************************'
+        println 'Author: Me'
+        println '****************************************************'
+    }
+}
+
+
 
 test {
     useJUnitPlatform()
+    testLogging.showStandardStreams = true
+    testLogging {
+        events "started", "passed", "skipped", "failed"
+    }
 }
+
+
+
+
+
