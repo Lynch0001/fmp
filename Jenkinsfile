@@ -15,7 +15,9 @@ pipeline {
  
       steps{
         echo 'Testing application.......'
-        sh './gradlew clean test --no-daemon'
+        script{
+          sh './gradlew clean test --no-daemon'
+        }
       }
      }
      
