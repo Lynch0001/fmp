@@ -1,9 +1,7 @@
 pipeline {
 
   agent any
-  tools{
-    jdk 'JDK8'
-  }
+
   stages {
   
     stage("build"){
