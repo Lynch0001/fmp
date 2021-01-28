@@ -7,7 +7,7 @@ pipeline {
     stage("build"){
  
       steps{
-        echo 'Building application'
+        sh './gradlew clean build'
       }
      }
      
@@ -15,9 +15,6 @@ pipeline {
  
       steps{
         echo 'Testing application.......'
-        script{
-          sh './gradlew clean test --no-daemon'
-        }
       }
      }
      
